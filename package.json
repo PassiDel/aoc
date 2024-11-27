@@ -1,0 +1,19 @@
+{
+  "name": "aoc",
+  "type": "module",
+  "author": "Pascal Syma <pascal@syma.dev> (https://syma.dev/)",
+  "scripts": {
+    "format": "prettier --write .",
+    "check": "prettier --check .",
+    "test": "bun test",
+    "test:dev": "bun test --watch"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prettier": "^3.4.0",
+    "prettier-plugin-organize-imports": "^4.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
