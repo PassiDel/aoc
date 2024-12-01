@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Template" type="BunRunConfiguration">
-    <option name="program" value="template/run.ts" />
+  <configuration default="false" name="YYYY-DD" type="BunRunConfiguration">
+    <option name="program" value="YYYY/DD/run.ts" />
     <option name="workingDirectory" value="$PROJECT_DIR$" />
     <method v="2" />
   </configuration>

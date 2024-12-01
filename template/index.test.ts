@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { solveFirst, solveSecond } from './index.ts';
 
-describe('20xx-xx', () => {
+describe('YYYY-DD', () => {
   it('first', () => {
     // TODO: add first input
     const testInput = ``;
