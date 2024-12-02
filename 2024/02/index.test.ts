@@ -13,5 +13,8 @@ describe('2024-02', () => {
   });
   it('second', () => {
     expect(solveSecond(testInput)).toBe(4);
+    expect(solveSecond(testInput)).toBeGreaterThanOrEqual(
+      solveFirst(testInput)
+    );
   });
 });
