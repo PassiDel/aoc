@@ -1,4 +1,22 @@
-# aoc
+# Advent of Code
+
+> [LANGUAGE: TypeScript]
+>
+> [RUNTIME: Bun]
+
+## Structure
+
+Every solution is grouped by its year and day and (usually) consists of five files:
+
+| Filename                            | Purpose                                                                                                 |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `<year>/<day>/index.ts`             | Has the solution. Exports two functions: `solveFirst(string): number` and `solveSecond(string): number` |
+| `<year>/<day>/index.test.ts`        | Unit test using the example input and expected solution.                                                |
+| `<year>/<day>/run.ts`               | Basic run script: Loading the actual input and passing it into the two solve functions.                 |
+| `<year>/<day>/input.txt`            | Input text from AOC.                                                                                    |
+| `<year>/<day>/<year>-<day>.run.xml` | IntelliJ/Webstorm runfile for `run.ts` using Bun.                                                       |
+
+## Setup
 
 To install dependencies:
 
@@ -6,10 +24,21 @@ To install dependencies:
 bun install
 ```
 
-To run:
+To test all days:
 
 ```bash
-bun run src/index.ts
+bun run test
 ```
 
-This project was created using `bun init` in bun v1.1.36. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+To create a new day-folder:
+
+```bash
+bun run copy.ts
+```
+
+To run a single day, first copy your input file from `https://adventofcode.com/<year>/day/<day>/input` into
+`<year>/<day>/input.txt`. Then run:
+
+```bash
+bun run <year>/<day>/run.ts
+```
