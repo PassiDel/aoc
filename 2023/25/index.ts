@@ -74,8 +74,8 @@ export function solveFirst(input: string): number {
   } while (edgeLength > 3);
 
   if (process.env.NODE_ENV !== 'test') {
-    console.log(`That took ${i} tries`);
-    console.log(mult);
+    console.log(`That took ${i} tries, result: `, mult);
   }
+
   return mult;
 }

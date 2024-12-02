@@ -4,10 +4,6 @@ export function solveFirst(input: string): number {
   const regex = /^.*?(\d).*(\d).*?$|^.*(\d).*$/gm;
   const match = input.matchAll(regex);
 
-  if (!match) {
-    return 0;
-  }
-
   const numbers = Array.from(match, (m) =>
     Number(m[3] ? `${m[3]}${m[3]}` : `${m[1]}${m[2]}`)
   );
@@ -40,10 +36,6 @@ export function solveSecond(input: string): number {
   const regex =
     /^.*?(one|two|three|four|five|six|seven|eight|nine|\d).*(one|two|three|four|five|six|seven|eight|nine|\d).*?$|^.*(one|two|three|four|five|six|seven|eight|nine|\d).*$/gm;
   const match = input.matchAll(regex);
-
-  if (!match) {
-    return 0;
-  }
 
   const numbers = Array.from(match, (m) =>
     Number(
