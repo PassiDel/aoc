@@ -73,3 +73,20 @@ export function groupBy<E, K>(
     [] as { key: K; elements: Array<E> }[]
   );
 }
+
+/**
+ * Return the middle Element of an array, rounding up.
+ * Returns undefined for empty arrays without throwing!
+ *
+ * @example
+ * ```typescript
+ * getMiddleElement([1, 2, 3, 4]) === 3
+ * getMiddleElement([1, 2, 3]) === 2
+ * getMiddleElement([1]) === 1
+ * getMiddleElement([]) === undefined
+ * ```
+ * @param arr
+ */
+export function getMiddleElement<E>(arr: ReadonlyArray<E>) {
+  return arr[Math.floor(arr.length / 2)];
+}

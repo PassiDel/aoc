@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'bun:test';
-import { multArray, multBy, sumArray, sumBy } from './array.ts';
+import {
+  getMiddleElement,
+  multArray,
+  multBy,
+  sumArray,
+  sumBy
+} from './array.ts';
 
 describe('array utils', () => {
   it('sumArray number array', () => {
@@ -126,5 +132,11 @@ describe('array utils', () => {
     expect(multBy([], (e) => e)).toBeNumber();
     expect(multBy([], (e) => e)).toBeFinite();
     expect(multBy([], (e) => e)).toBe(0);
+  });
+  it('getMiddleElement', () => {
+    expect(getMiddleElement([1, 2, 3, 4])).toBe(3);
+    expect(getMiddleElement([1, 2, 3])).toBe(2);
+    expect(getMiddleElement([1])).toBe(1);
+    expect(getMiddleElement([])).toBeUndefined();
   });
 });
