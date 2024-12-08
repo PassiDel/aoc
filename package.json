@@ -7,7 +7,8 @@
     "format": "prettier --write .",
     "check": "prettier --check .",
     "test": "bun test",
-    "test:dev": "bun test --watch"
+    "test:dev": "bun test --watch 2024",
+    "test:utils": "NODE_ENV=production bun test --watch --coverage utils/*"
   },
   "devDependencies": {
     "@types/bun": "latest",

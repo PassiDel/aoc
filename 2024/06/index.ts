@@ -1,8 +1,4 @@
-import { sumBy } from '../../utils/array.ts';
-
-export function replace(arr: string[], x: number, y: number, char: string) {
-  arr[y] = arr[y].substring(0, x) + char + arr[y].substring(x + 1);
-}
+import { replaceChar, sumBy } from '../../utils/array.ts';
 
 const directions = [
   { d: '^', x: 0, y: -1 },
@@ -28,7 +24,7 @@ export function solveFirst(input: string): number {
       direction = (direction + 1) % 4;
     }
 
-    replace(rows, x, y, 'X');
+    replaceChar(rows, x, y, 'X');
     x += directions[direction].x;
     y += directions[direction].y;
   }
@@ -98,12 +94,12 @@ export function solveRow(
       continue;
     }
 
-    replace(rows, column, row, '#');
+    replaceChar(rows, column, row, '#');
     if (!finishes(rows, startX, startY, startDirection)) {
       found++;
     }
 
-    replace(rows, column, row, '.');
+    replaceChar(rows, column, row, '.');
   }
   return found;
 }

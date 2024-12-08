@@ -90,3 +90,50 @@ export function groupBy<E, K>(
 export function getMiddleElement<E>(arr: ReadonlyArray<E>) {
   return arr[Math.floor(arr.length / 2)];
 }
+
+/**
+ * Returns an array with every combination of every element in an array.
+ * The combination array will have a length of `n * (n-1)` for an array of length `n`.
+ * @example
+ * ```typescript
+ * const arr = [0, 1, 2]
+ *
+ * combinations(arr) === [
+ *  {a: 0, b: 1},
+ *  {a: 0, b: 2},
+ *  {a: 1, b: 0},
+ *  {a: 1, b: 2},
+ *  {a: 2, b: 0},
+ *  {a: 2, b: 1},
+ * ]
+ * ```
+ * @param arr
+ */
+export function combinations<E>(arr: ReadonlyArray<E>): { a: E; b: E }[] {
+  return arr
+    .flatMap((a, _, arr) => arr.flatMap((b) => (a !== b ? [{ a, b }] : null)))
+    .filter((c) => !!c);
+}
+
+/**
+ * Returns a filter lambda to be used in array.filter() to only allow the
+ * first occurrence of duplicate values.
+ * @param isEqual Custom equality check, defaults to `a === b`
+ */
+export function unique<E>(
+  isEqual: (a: E, b: E) => boolean = (a, b) => a === b
+) {
+  return (self: E, index: number, arr: ReadonlyArray<E>) =>
+    arr.findIndex((v) => isEqual(v, self)) === index;
+}
+
+/**
+ * Replace a char in a two-dimensional array of strings.
+ * @param arr two-dimensional string array
+ * @param x column
+ * @param y row
+ * @param char Char
+ */
+export function replaceChar(arr: string[], x: number, y: number, char: string) {
+  arr[y] = arr[y].substring(0, x) + char + arr[y].substring(x + 1);
+}

@@ -1,10 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 import {
+  combinations,
   getMiddleElement,
+  groupBy,
   multArray,
   multBy,
+  replaceChar,
   sumArray,
-  sumBy
+  sumBy,
+  unique
 } from './array.ts';
 
 describe('array utils', () => {
@@ -133,10 +137,87 @@ describe('array utils', () => {
     expect(multBy([], (e) => e)).toBeFinite();
     expect(multBy([], (e) => e)).toBe(0);
   });
+  it('groupBy', () => {
+    const arr = [0, 1, 2, 2, 1, 3];
+    const actual = groupBy(arr, (e) => e);
+    const expected = [
+      { key: 0, elements: [0] },
+      { key: 1, elements: [1, 1] },
+      { key: 2, elements: [2, 2] },
+      { key: 3, elements: [3] }
+    ];
+
+    expect(actual).toHaveLength(actual.length);
+    expect(Object.keys(actual.map((e) => e.key))).toEqual(
+      expect.arrayContaining(Object.keys(expected.map((e) => e.key)))
+    );
+    expected.forEach(({ key, elements }) => {
+      const actualGroup = actual.find((e) => e.key === key);
+      expect(actualGroup).toBeTruthy();
+      expect(actualGroup).toBeObject();
+      expect(actualGroup?.elements || []).toHaveLength(elements.length);
+      expect(actualGroup?.elements || []).toEqual(
+        expect.arrayContaining(elements)
+      );
+    });
+  });
   it('getMiddleElement', () => {
     expect(getMiddleElement([1, 2, 3, 4])).toBe(3);
     expect(getMiddleElement([1, 2, 3])).toBe(2);
     expect(getMiddleElement([1])).toBe(1);
     expect(getMiddleElement([])).toBeUndefined();
+  });
+  it('combinations', () => {
+    const numbers = [0, 1, 2];
+    const n = numbers.length;
+    const actual = combinations(numbers);
+    const expected = [
+      { a: 0, b: 1 },
+      { a: 0, b: 2 },
+      { a: 1, b: 0 },
+      { a: 1, b: 2 },
+      { a: 2, b: 0 },
+      { a: 2, b: 1 }
+    ];
+    expect(actual).toHaveLength(n * (n - 1));
+    expect(actual).toEqual(expect.arrayContaining(expected));
+    expect(expected).toEqual(expect.arrayContaining(actual));
+  });
+  it('unique numbers', () => {
+    const arr = [0, 1, 2, 2, 1, 3];
+    const actual = arr.filter(unique());
+    const expected = [0, 1, 2, 3];
+
+    expect(actual).toHaveLength(actual.length);
+    expect(actual).toEqual(expect.arrayContaining(expected));
+    expect(expected).toEqual(expect.arrayContaining(actual));
+  });
+  it('unique objects', () => {
+    const arr = [{ a: 0 }, { a: 1 }, { a: 2 }, { a: 2 }, { a: 1 }, { a: 3 }];
+    const actual = arr.filter(unique((a, b) => a.a === b.a));
+    const expected = [{ a: 0 }, { a: 1 }, { a: 2 }, { a: 3 }];
+
+    expect(actual).toHaveLength(actual.length);
+    expect(actual).toEqual(expect.arrayContaining(expected));
+    expect(expected).toEqual(expect.arrayContaining(actual));
+
+    // should just pass everything through since objects equality check is by reference
+    expect(arr.filter(unique())).toHaveLength(arr.length);
+  });
+  it('replaceChar', () => {
+    const input = `000000
+111111
+222222
+333333`;
+    const rows = input.split('\n');
+    replaceChar(rows, 1, 2, 'b');
+    const actual = rows.join('\n');
+    const expected = `000000
+111111
+2b2222
+333333`;
+
+    expect(actual).toHaveLength(expected.length);
+    expect(actual).toEqual(expected);
   });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { solveFirst } from './index.ts';
+import { solveFirst, solveSecond } from './index.ts';
 
 describe('2024-06', () => {
   const testInput = `....#.....
@@ -16,7 +16,10 @@ describe('2024-06', () => {
     expect(solveFirst(testInput)).toBe(41);
   });
   it('second', () => {
-    // that takes too long
-    // expect(solveSecond(testInput)).toBe(6);
+    // it takes too long
+    // so only run while `NODE_ENV=production bun test --coverage`
+    if (process.env.NODE_ENV === 'production') {
+      expect(solveSecond(testInput)).toBe(6);
+    }
   });
 });
