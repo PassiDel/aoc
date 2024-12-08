@@ -1,4 +1,5 @@
 export type Coordinate = [number, number];
+export type Coordinates = Coordinate[];
 
 /**
  * Returns a filter lambda to be used in array.filter() on a xy-Coordinate array (array of two number arrays).

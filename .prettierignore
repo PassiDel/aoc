@@ -1,4 +1,2 @@
-.output
-.nuxt
 node_modules
-prisma/migrations
+input.txt
