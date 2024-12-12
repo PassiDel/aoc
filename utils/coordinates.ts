@@ -1,5 +1,16 @@
+export const Sides = {
+  TOP: 0,
+  RIGHT: 1,
+  DOWN: 2,
+  LEFT: 3
+} as const;
+
+export type Side = (typeof Sides)[keyof typeof Sides];
+
 export type Coordinate = [number, number];
+export type CoordinateSide = [number, number, Side];
 export type Coordinates = Coordinate[];
+export type CoordinateSides = CoordinateSide[];
 
 /**
  * Returns a filter lambda to be used in array.filter() on a xy-Coordinate array (array of two number arrays).
@@ -9,7 +20,7 @@ export type Coordinates = Coordinate[];
  * @param yMin Inclusive, defaults to 0
  */
 export function inBounds(xMax: number, yMax: number, xMin = 0, yMin = 0) {
-  return ([x, y]: Readonly<Coordinate>) =>
+  return ([x, y]: Readonly<Coordinate | CoordinateSide>) =>
     x >= xMin && x < xMax && y >= yMin && y < yMax;
 }
 
@@ -19,8 +30,8 @@ export function inBounds(xMax: number, yMax: number, xMin = 0, yMin = 0) {
  * @param b xy-Coordinate, two number array
  */
 export function isCoordinateEqual(
-  a: Readonly<Coordinate>,
-  b: Readonly<Coordinate>
+  a: Readonly<Coordinate | CoordinateSide>,
+  b: Readonly<Coordinate | CoordinateSide>
 ): boolean {
   return b[0] === a[0] && b[1] === a[1];
 }
@@ -77,4 +88,46 @@ export function findCoordsOfDigit(
         ),
     []
   );
+}
+
+export function calculateSides(g: Coordinate[]) {
+  const allSides = g.flatMap(
+    ([x, y]) =>
+      [
+        [x - 0.5, y, Sides.LEFT],
+        [x, y - 0.5, Sides.TOP],
+        [x + 0.5, y, Sides.RIGHT],
+        [x, y + 0.5, Sides.DOWN]
+      ] as CoordinateSides
+  );
+
+  const uniqueSides = allSides.filter(
+    (c) => allSides.filter((b) => isCoordinateEqual(c, b)).length === 1
+  );
+  return { uniqueSides, allSides };
+}
+
+export function getNeighbouringSides(
+  from: CoordinateSide,
+  all: CoordinateSides
+) {
+  const [x, y, side] = from;
+  const isVertical = Math.abs(x % 1) === 0.5;
+  const coordIndex = isVertical ? 1 : 0;
+
+  const allDirectional = all
+    .filter(([cx, cy, cs]) => (isVertical ? cx === x : cy === y) && cs === side)
+    .toSorted((a, b) => a[coordIndex] - b[coordIndex]);
+
+  const before = allDirectional
+    .filter((d) => d[coordIndex] - from[coordIndex] < 0)
+    .toSorted((a, b) => b[coordIndex] - a[coordIndex])
+    .filter((d, i) => d[coordIndex] - from[coordIndex] === 0 - i - 1);
+  const after = allDirectional
+    .filter((d) => d[coordIndex] - from[coordIndex] > 0)
+    .filter((d, i) => d[coordIndex] - from[coordIndex] === i + 1);
+
+  const neighbours = [...before, ...after];
+
+  return { before, after, neighbours };
 }
