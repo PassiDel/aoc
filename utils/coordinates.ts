@@ -36,6 +36,14 @@ export function isCoordinateEqual(
   return b[0] === a[0] && b[1] === a[1];
 }
 
+/**
+ * Check if a xy-coordinate has integer coefficients.
+ * @param coordinate Coordinate
+ */
+export function isInteger(coordinate: Readonly<Coordinate | CoordinateSide>) {
+  return coordinate[0] % 1 === 0 && coordinate[1] % 1 === 0;
+}
+
 export type DirectNeighbours = 'top' | 'left' | 'right' | 'down';
 
 export type DiagonalNeighbours =

@@ -4,7 +4,8 @@ import {
   findCoordsOfDigit,
   getAdjacent,
   inBounds,
-  isCoordinateEqual
+  isCoordinateEqual,
+  isInteger
 } from './coordinates.ts';
 
 describe('coordinates utils', () => {
@@ -100,5 +101,15 @@ describe('coordinates utils', () => {
     actualSevenRegex.forEach((coord) => expect(coord).toBeArrayOfSize(2));
     expect(actualSevenRegex[0]).toEqual([1, 2]);
     expect(actualSevenRegex[1]).toEqual([2, 3]);
+  });
+
+  it('isInteger', () => {
+    expect(isInteger([1, 2])).toBeTrue();
+    expect(isInteger([1, 2, 3])).toBeTrue();
+    expect(isInteger([0, 0])).toBeTrue();
+    expect(isInteger([0, 10.001])).toBeFalse();
+    expect(isInteger([472.2948292, 10.001])).toBeFalse();
+    expect(isInteger([-472.2948292, 10.001])).toBeFalse();
+    expect(isInteger([-472.2948292, -10.001])).toBeFalse();
   });
 });
