@@ -108,6 +108,8 @@ describe('coordinates utils', () => {
     expect(isInteger([1, 2, 3])).toBeTrue();
     expect(isInteger([0, 0])).toBeTrue();
     expect(isInteger([0, 10.001])).toBeFalse();
+    expect(isInteger([-1, -3])).toBeTrue();
+    expect(isInteger([0, -222])).toBeTrue();
     expect(isInteger([472.2948292, 10.001])).toBeFalse();
     expect(isInteger([-472.2948292, 10.001])).toBeFalse();
     expect(isInteger([-472.2948292, -10.001])).toBeFalse();
