@@ -1,3 +1,5 @@
+import { sumBy } from './array.ts';
+
 export const Sides = {
   TOP: 0,
   RIGHT: 1,
@@ -6,6 +8,15 @@ export const Sides = {
 } as const;
 
 export type Side = (typeof Sides)[keyof typeof Sides];
+
+export const CoordinateIndices = {
+  x: 0,
+  y: 1,
+  side: 2
+} as const;
+
+export type CoordinateIndex =
+  (typeof CoordinateIndices)[keyof typeof CoordinateIndices];
 
 export type Coordinate = [number, number];
 export type CoordinateSide = [number, number, Side];
@@ -138,4 +149,21 @@ export function getNeighbouringSides(
   const neighbours = [...before, ...after];
 
   return { before, after, neighbours };
+}
+
+/**
+ * Calculate the variance (difference from the average) of one dimension from coordinates.
+ * @param coords Array of Coordinates
+ * @param index `CoordinateIndices.x` for x, `CoordinateIndices.y` for y, `CoordinateIndices.side` for side
+ */
+export function calculateVariance<C extends Coordinate | CoordinateSide>(
+  coords: C[],
+  index: C extends Coordinate ? 0 | 1 : CoordinateIndex
+) {
+  const mean =
+    sumBy(coords as CoordinateSides, (c) => c[index]) / coords.length;
+  return (
+    sumBy(coords as CoordinateSides, (c) => Math.pow(c[index] - mean, 2)) /
+    coords.length
+  );
 }
