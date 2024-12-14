@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AOC 2024-14 Part 2</title>
+    <style>
+      #main {
+        display: grid;
+        grid-template-columns: repeat(101, 5px);
+      }
+      #main > div {
+        width: 5px;
+        height: 5px;
+      }
+      .black {
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main"></div>
+    <button id="step">+1</button>
+    <button id="step2">+x</button>
+    <button id="step3">+y</button>
+    <input id="iteration" type="number" value="0" size="1" min="0" />
+  </body>
+  <script src="./input.js"></script>
+  <!--  <script src="./example-input.js"></script>-->
+  <script>
+    const main = document.getElementById('main');
+    main.style.gridTemplateColumns = `repeat(${xMax}, 5px)`;
+    const iteration = document.getElementById('iteration');
+    const stepBtn = document.getElementById('step');
+    const step2Btn = document.getElementById('step2');
+    step2Btn.innerText = `+x (${xMax})`;
+    const step3Btn = document.getElementById('step3');
+    step3Btn.innerText = `+y (${yMax})`;
+
+    const pixels = [];
+    for (let i = 0; i < xMax * yMax; i++) {
+      const pixel = document.createElement('div');
+      pixels.push(pixel);
+      main.appendChild(pixel);
+    }
+    let step = 0;
+
+    const match = input.matchAll(/^p=(-?\d*),(-?\d*) v=(-?\d*),(-?\d*)$/gm);
+
+    const matches = Array.from(match, (m) => ({
+      p: m.slice(1, 3).map(Number),
+      v: m.slice(3, 5).map(Number)
+    }));
+
+    function mod(x, m) {
+      return ((x % m) + m) % m;
+    }
+    console.log(matches);
+
+    stepBtn.addEventListener('click', () => {
+      step++;
+      render();
+    });
+    step2Btn.addEventListener('click', () => {
+      step += xMax;
+      render();
+    });
+    step3Btn.addEventListener('click', () => {
+      step += yMax;
+      render();
+    });
+    iteration.addEventListener('input', () => {
+      step = parseInt(iteration.value);
+      render();
+    });
+
+    render();
+
+    function render() {
+      iteration.value = step.toString();
+
+      const finalPositions = matches.map((p) => [
+        mod(p.p[0] + p.v[0] * step, xMax),
+        mod(p.p[1] + p.v[1] * step, yMax)
+      ]);
+
+      for (let y = 0; y < yMax; y++) {
+        for (let x = 0; x < xMax; x++) {
+          const pixel = pixels[y * xMax + x];
+
+          if (finalPositions.some((c) => c[0] === x && c[1] === y)) {
+            pixel.classList.add('black');
+          } else {
+            pixel.classList.remove('black');
+          }
+        }
+      }
+    }
+  </script>
+</html>
