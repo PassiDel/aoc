@@ -135,5 +135,5 @@ export function unique<E>(
  * @param char Char
  */
 export function replaceChar(arr: string[], x: number, y: number, char: string) {
-  arr[y] = arr[y].substring(0, x) + char + arr[y].substring(x + 1);
+  arr[y] = arr[y].substring(0, x) + char + arr[y].substring(x + char.length);
 }
