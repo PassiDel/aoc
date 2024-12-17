@@ -7,10 +7,7 @@ import {
   type CoordinateSides,
   isCoordinateEqual
 } from '../../utils/coordinates.ts';
-
-function mod(x: number, m: number) {
-  return ((x % m) + m) % m;
-}
+import { mod } from '../../utils/numbers.ts';
 
 export function solveFirst(
   input: string,
