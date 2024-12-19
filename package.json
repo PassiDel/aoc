@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/javascript-astar": "^0.0.35",
     "@types/prompts": "^2.4.9",
     "p-limit": "^6.1.0",
     "prettier": "^3.4.0",
@@ -21,5 +22,8 @@
   },
   "peerDependencies": {
     "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "javascript-astar": "^0.4.1"
   }
 }
