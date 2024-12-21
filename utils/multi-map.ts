@@ -24,5 +24,6 @@ export class MultiMap<V, K extends unknown[]> extends Map<K[0], any> {
     } else {
       this.set(firstKey, value);
     }
+    return value;
   }
 }
