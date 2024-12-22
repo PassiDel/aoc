@@ -8,6 +8,10 @@ describe('2024-21', () => {
 179A
 456A
 379A`;
-    expect(solveFirst(testInput)).toBe(126384);
+    // it takes too long
+    // so only run while `NODE_ENV=production bun test --coverage`
+    if (process.env.NODE_ENV === 'production') {
+      expect(solveFirst(testInput)).toBe(126384);
+    }
   });
 });
