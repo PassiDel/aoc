@@ -116,6 +116,27 @@ export function combinations<E>(arr: ReadonlyArray<E>): { a: E; b: E }[] {
 }
 
 /**
+ * Returns an array with every unique combination of every element in an array.
+ * The combination array will have a length of `n! / ((n-2)! * 2)` for an array of length `n`.
+ * @example
+ * ```typescript
+ * const arr = [0, 1, 2]
+ *
+ * combinations(arr) === [
+ *  {a: 0, b: 1},
+ *  {a: 0, b: 2},
+ *  {a: 1, b: 2}
+ * ]
+ * ```
+ * @param arr
+ */
+export function uniqueCombinations<E>(arr: ReadonlyArray<E>): { a: E; b: E }[] {
+  return arr.flatMap((a, aI) =>
+    arr.flatMap((b, bI) => (a !== b && aI > bI ? [{ a, b }] : []))
+  );
+}
+
+/**
  * Returns a filter lambda to be used in array.filter() to only allow the
  * first occurrence of duplicate values.
  * @param isEqual Custom equality check, defaults to `a === b`
