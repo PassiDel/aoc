@@ -14,18 +14,16 @@ export function solveFirst(input: string): number {
     (combinations, b) => {
       const rows = b.split('\n');
       const isLock = b[0][0] === '#' ? 1 : 0;
-      const comb: KeyLock = [];
+      const combination: KeyLock = [];
       for (let i = 0; i < rows[0].length; i++) {
         const column = rows.flatMap((r) => r[i]);
-        comb.push(column.filter((c) => c === '#').length - 1);
+        combination.push(column.filter((c) => c === '#').length - 1);
       }
-      combinations[isLock].push(comb);
+      combinations[isLock].push(combination);
       return combinations;
     },
     [[], []] as [KeyLock[], KeyLock[]]
   );
-  // const locks = blocks.filter((b) => b[0][0] === '#');
-  // const key = blocks.filter((b) => b[0][0] === '.');
 
   const found = locks.map((l) =>
     sumBy(keys, (k) => (checkKeyLock(l, k) ? 1 : 0))
