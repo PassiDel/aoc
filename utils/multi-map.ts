@@ -11,6 +11,18 @@ export class MultiMap<V, K extends unknown[]> extends Map<K[0], any> {
     }
     return this.get(firstKey) as V;
   }
+  multiHas(...keys: K): boolean {
+    const firstKey = keys[0];
+    const otherKeys = keys.slice(1);
+    if (!this.has(firstKey)) {
+      return false;
+    }
+
+    if (otherKeys.length > 0) {
+      return (this.get(firstKey)! as MultiMap<any, any>).multiHas(...otherKeys);
+    }
+    return this.has(firstKey);
+  }
 
   multiSet(value: V, ...keys: K) {
     const firstKey = keys[0];
