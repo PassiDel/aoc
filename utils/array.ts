@@ -135,6 +135,13 @@ export function uniqueCombinations<E>(arr: ReadonlyArray<E>): { a: E; b: E }[] {
     arr.flatMap((b, bI) => (a !== b && aI > bI ? [{ a, b }] : []))
   );
 }
+export function uniqueIndexCombinations<E>(
+  arr: ReadonlyArray<E>
+): { aI: number; bI: number }[] {
+  return arr.flatMap((a, aI) =>
+    arr.flatMap((b, bI) => (a !== b && aI > bI ? [{ aI, bI }] : []))
+  );
+}
 
 /**
  * Returns a filter lambda to be used in array.filter() to only allow the

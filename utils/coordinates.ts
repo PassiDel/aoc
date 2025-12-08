@@ -1,4 +1,4 @@
-import { sumBy } from './array.ts';
+import { sumArray, sumBy } from './array.ts';
 
 export const Sides = {
   TOP: 0,
@@ -166,4 +166,14 @@ export function calculateVariance<C extends Coordinate | CoordinateSide>(
     sumBy(coords as CoordinateSides, (c) => Math.pow(c[index] - mean, 2)) /
     coords.length
   );
+}
+
+// TODO: add docs and tests
+
+export function euclideanDistanceSqrtless(a: number[], b: number[]): number {
+  return sumArray(a.map((d, i) => Math.pow(d - b[i], 2)));
+}
+
+export function euclideanDistance(a: number[], b: number[]): number {
+  return Math.sqrt(euclideanDistanceSqrtless(a, b));
 }
