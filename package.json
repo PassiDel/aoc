@@ -26,6 +26,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "javascript-astar": "^0.4.1"
+    "javascript-astar": "^0.4.1",
+    "z3-solver": "^4.15.4"
   }
 }
