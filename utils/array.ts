@@ -14,9 +14,9 @@ export function sumArray(arr: ReadonlyArray<number>): number {
  */
 export function sumBy<E>(
   arr: ReadonlyArray<E>,
-  by: (element: E) => number | string
+  by: (element: E, index: number) => number | string
 ): number {
-  return arr.reduce((sum, element) => sum + Number(by(element)), 0);
+  return arr.reduce((sum, element, i) => sum + Number(by(element, i)), 0);
 }
 
 /**
