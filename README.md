@@ -1,5 +1,6 @@
 # Advent of Code
 
+![Gitea](https://git.syma.dev/pascal/aoc/actions/workflows/ci.yml/badge.svg?branch=main)
 ![Check runs](https://img.shields.io/github/check-runs/PassiDel/aoc/main)
 ![Typescript version](https://img.shields.io/github/package-json/dependency-version/passidel/aoc/peer/typescript)
 ![Runtime Bun](<https://img.shields.io/badge/bun-pink?logo=bun&label=runtime&labelColor=black&color=rgb(244,114,182)>)
